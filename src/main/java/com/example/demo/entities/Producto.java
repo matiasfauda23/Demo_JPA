@@ -15,5 +15,6 @@ public class Producto {
     @Column(name = "nombre_producto", nullable = false, length = 100)
     private String nombre;
     private Double precio;
+    private String Descripcion;
 
 }
