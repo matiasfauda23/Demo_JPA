@@ -20,9 +20,22 @@ public class ProductoController {
     public List<Producto> obtenerTodos(){
         return productoRepository.findAll();
     }
-    //Guardamos producto nuevo desde el navegador
+    //Crear un producto
     @PostMapping
-    public Producto guardarProducto(@RequestBody Producto producto){
+    public Producto crear(@RequestBody Producto producto){
         return productoRepository.save(producto);
     }
+
+    //Obtener producto por ID
+    @GetMapping("/{id}")
+    public  Producto obtenerPorId(@PathVariable Long id){
+        return productoRepository.findById(id).orElse(null);
+    }
+
+    //Borrar producto
+    @DeleteMapping("{id}")
+    public void borrar(@PathVariable Long id){
+        productoRepository.deleteById(id);
+    }
+
 }
