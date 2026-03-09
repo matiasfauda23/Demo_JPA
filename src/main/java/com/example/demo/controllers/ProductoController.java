@@ -34,6 +34,19 @@ public class ProductoController {
     public Producto crear(@RequestBody Producto producto){
         return productoRepository.save(producto);
     }
+    @PutMapping("/{id}")
+    public Producto  actualizar (@PathVariable Long id, @RequestBody Producto productoDetalles) {
+        //Buscamos el producto que ya existe
+        Producto producto = productoRepository.findById(id).orElse(null);
+
+        if (producto != null) {
+            producto.setNombre(productoDetalles.getNombre());
+            producto.setPrecio(productoDetalles.getPrecio());
+            producto.setDescripcion(productoDetalles.getDescripcion());
+            return productoRepository.save(producto);
+        }
+        return null;
+    }
 
     //Borrar producto
     @DeleteMapping("{id}")
