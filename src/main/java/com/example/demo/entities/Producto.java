@@ -7,6 +7,8 @@ import lombok.*;
 @Setter // Genera los setters
 @NoArgsConstructor // Genera el constructor vacio obligatorio para JPA
 @AllArgsConstructor // Genera un constructor con todos los campos
+
+
 public class Producto {
     @Id //Primary Key
     @GeneratedValue(strategy = GenerationType.IDENTITY) //El id se genera solo
@@ -16,5 +18,10 @@ public class Producto {
     private String nombre;
     private Double precio;
     private String Descripcion;
+
+    // Aca tenemos la relacion
+    @ManyToOne //Muchos productos pertenecen a UNA SOLA Categoria
+    @JoinColumn(name = "categoria_id") //Nombre de la columna (FK) en la tabla productos
+    private Categoria categoria;
 
 }
