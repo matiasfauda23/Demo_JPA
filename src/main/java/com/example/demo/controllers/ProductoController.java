@@ -12,24 +12,27 @@ import java.util.List;
 
 public class ProductoController {
 
-    @Autowired // Le pide a spring que "inyecte" el repo automaticamente
+    @Autowired //Le decimos a spring que busque el repositorio creado y que lo ponga aca para poder usarlo
     private ProductoRepository productoRepository;
 
-    //Obtengo los productos de la db
+    //GetMapping lo uso para lectura, leemos los productos de la db
     @GetMapping
     public List<Producto> obtenerTodos(){
         return productoRepository.findAll();
     }
-    //Crear un producto
-    @PostMapping
-    public Producto crear(@RequestBody Producto producto){
-        return productoRepository.save(producto);
-    }
 
     //Obtener producto por ID
+    //@PathVariable para que agarre el id de la URL y lo guarde en la variable id de Java
     @GetMapping("/{id}")
     public  Producto obtenerPorId(@PathVariable Long id){
         return productoRepository.findById(id).orElse(null);
+    }
+
+    //PostMapping lo usamos para crear, aqui creamos un producto
+    //@RequestBody le dice a Spring que mire el cuerpo del mensaje, agarre ese JSON y lo convierte en un objeto Producto
+    @PostMapping
+    public Producto crear(@RequestBody Producto producto){
+        return productoRepository.save(producto);
     }
 
     //Borrar producto
