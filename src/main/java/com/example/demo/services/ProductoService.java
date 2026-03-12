@@ -17,11 +17,13 @@ public class ProductoService {
 
     //Recupero lista de productos de la bd
     public List<Producto> obtenerTodos(){
+
         return productoRepository.findAll();
     }
 
     //Obtener producto por ID de la bd
     public Producto obtenerPorId(Long id){
+
         return productoRepository.findById(id).orElse(null);
     }
 
@@ -40,6 +42,25 @@ public class ProductoService {
 
     //Logica para eliminar un producto con su PK
     public void eliminar(Long id){
+
         productoRepository.deleteById(id);
     }
+
+    //Logica para actualizar un producto
+    public Producto actualizar(Long id, Producto productoDetalles) {
+        //Busco si el producto existe
+        Producto producto = productoRepository.findById(id).orElse(null);
+
+        if (producto != null) {
+            //Actualizamos los campos necesarios
+            producto.setNombre(productoDetalles.getNombre());
+            producto.setPrecio(productoDetalles.getPrecio());
+            producto.setDescripcion(productoDetalles.getDescripcion());
+
+            //Guardamos los cambios
+            return productoRepository.save(producto);
+        }
+        return null;
+    }
+
 }

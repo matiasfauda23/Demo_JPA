@@ -46,17 +46,8 @@ public class ProductoController {
     }
 
     @PutMapping("/{id}")
-    public Producto  actualizar (@PathVariable Long id, @RequestBody Producto productoDetalles) {
-        //Buscamos el producto que ya existe
-        Producto producto = productoService.obtenerPorId(id);
-
-        if (producto != null) {
-            producto.setNombre(productoDetalles.getNombre());
-            producto.setPrecio(productoDetalles.getPrecio());
-            producto.setDescripcion(productoDetalles.getDescripcion());
-            return productoService.crearProducto(producto);
-        }
-        return null;
+    public Producto actualizar(@PathVariable Long id, @RequestBody Producto productoDetalles) {
+        return productoService.actualizar(id, productoDetalles);
     }
 
     //Borrar producto
