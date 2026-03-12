@@ -29,7 +29,7 @@ public class ProductoController {
     //@RequestBody le dice a Spring que mire el cuerpo del mensaje, agarre ese JSON y lo convierte en un objeto Producto
     @PostMapping
     public Producto crear(@RequestBody Producto producto){
-        return productoService.guardar(producto);
+        return productoService.crearProducto(producto);
     }
 
     //Obtener producto por ID
@@ -37,6 +37,12 @@ public class ProductoController {
     @GetMapping("/{id}")
     public  Producto obtenerPorId(@PathVariable Long id){
         return productoService.obtenerPorId(id);
+    }
+
+    //Filtrar por precio
+    @GetMapping("/precio-mayor/{precio}")
+    public List<Producto> filtrarPorPrecio(@PathVariable Double precio){
+        return productoService.obtenerPorMayorPrecio(precio);
     }
 
     @PutMapping("/{id}")
@@ -48,7 +54,7 @@ public class ProductoController {
             producto.setNombre(productoDetalles.getNombre());
             producto.setPrecio(productoDetalles.getPrecio());
             producto.setDescripcion(productoDetalles.getDescripcion());
-            return productoService.guardar(producto);
+            return productoService.crearProducto(producto);
         }
         return null;
     }

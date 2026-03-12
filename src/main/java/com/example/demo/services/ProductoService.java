@@ -30,10 +30,6 @@ public class ProductoService {
         return productoRepository.findByPrecioGreaterThan(precio);
     }
 
-    public Producto guardar(Producto producto){
-        return productoRepository.save(producto);
-    }
-
     //Logica para que ningun producto ingrese a la DB con precio invalido
     public Producto crearProducto(Producto producto){
         if(producto.getPrecio() < 0){
