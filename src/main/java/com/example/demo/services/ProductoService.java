@@ -24,7 +24,7 @@ public class ProductoService {
     //Obtener producto por ID de la bd
     public Producto obtenerPorId(Long id){
 
-        return productoRepository.findById(id).orElse(null);
+        return productoRepository.findById(id).orElseThrow(() -> new RuntimeException("Producto no encontrado con el ID: " + id));
     }
 
     //Busqueda personalizada usando metodos de JPA

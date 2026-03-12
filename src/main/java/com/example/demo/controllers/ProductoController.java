@@ -4,6 +4,7 @@ import com.example.demo.entities.Producto;
 import com.example.demo.repositories.ProductoRepository;
 import com.example.demo.services.ProductoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,8 +36,15 @@ public class ProductoController {
     //Obtener producto por ID
     //@PathVariable para que agarre el id de la URL y lo guarde en la variable id de Java
     @GetMapping("/{id}")
-    public  Producto obtenerPorId(@PathVariable Long id){
-        return productoService.obtenerPorId(id);
+    public ResponseEntity<?> obtenerPorId(@PathVariable Long id){
+        try {
+            //Buscamos el producto, si no lo encuentra lanaza RuntimeException
+            Producto producto = productoService.obtenerPorId(id);
+            //Si llegamos aca el producto existe, crea un paquete con codigo 200 y mete al producto
+            return ResponseEntity.ok(producto);
+        }catch (RuntimeException e){
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
 
     //Filtrar por precio
@@ -51,9 +59,13 @@ public class ProductoController {
     }
 
     //Borrar producto
-    @DeleteMapping("{id}")
-    public void borrar(@PathVariable Long id){
-        productoService.eliminar(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> borrar(@PathVariable Long id) {
+        try {
+            productoService.eliminar(id);
+            return ResponseEntity.noContent().build(); // 204 No Content es el exito estandar para borrar
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(404).body(e.getMessage());
+        }
     }
-
 }
