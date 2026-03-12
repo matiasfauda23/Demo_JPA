@@ -36,15 +36,10 @@ public class ProductoController {
     //Obtener producto por ID
     //@PathVariable para que agarre el id de la URL y lo guarde en la variable id de Java
     @GetMapping("/{id}")
-    public ResponseEntity<?> obtenerPorId(@PathVariable Long id){
-        try {
-            //Buscamos el producto, si no lo encuentra lanaza RuntimeException
-            Producto producto = productoService.obtenerPorId(id);
-            //Si llegamos aca el producto existe, crea un paquete con codigo 200 y mete al producto
-            return ResponseEntity.ok(producto);
-        }catch (RuntimeException e){
-            return ResponseEntity.status(404).body(e.getMessage());
-        }
+    public Producto obtenerPorId(@PathVariable Long id) {
+        // Ya no necesitas try-catch ni ResponseEntity<?> aquí
+        // El GlobalExceptionHandler se encarga de convertir el error en un 404
+        return productoService.obtenerPorId(id);
     }
 
     //Filtrar por precio
@@ -60,12 +55,7 @@ public class ProductoController {
 
     //Borrar producto
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> borrar(@PathVariable Long id) {
-        try {
-            productoService.eliminar(id);
-            return ResponseEntity.noContent().build(); // 204 No Content es el exito estandar para borrar
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(404).body(e.getMessage());
-        }
+    public void borrar(@PathVariable Long id) {
+        productoService.eliminar(id);
     }
 }

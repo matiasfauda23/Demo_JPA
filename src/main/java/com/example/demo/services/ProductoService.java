@@ -1,6 +1,7 @@
 package com.example.demo.services;
 
 import com.example.demo.entities.Producto;
+import com.example.demo.exceptions.ResourceNotFoundException;
 import com.example.demo.repositories.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,9 @@ public class ProductoService {
     }
 
     //Obtener producto por ID de la bd
-    public Producto obtenerPorId(Long id){
-
-        return productoRepository.findById(id).orElseThrow(() -> new RuntimeException("Producto no encontrado con el ID: " + id));
+    public Producto obtenerPorId(Long id) {
+        return productoRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("No se encontró el producto con ID: " + id));
     }
 
     //Busqueda personalizada usando metodos de JPA
