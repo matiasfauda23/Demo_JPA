@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+//Se comunica con el navegador enviando HTML (pagina web).
 @RequestMapping("/productos/web")
 public class ProductoWebController {
 
