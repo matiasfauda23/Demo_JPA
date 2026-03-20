@@ -63,5 +63,13 @@ public class ProductoService {
         }
         return null;
     }
+    //Logica para buscar producto por nombre
+    public List<Producto> buscarPorNombre(String nombre){
+        if(nombre != null && !nombre.isEmpty()){
+            return productoRepository.findByNombreContainingIgnoreCase(nombre);
+        }
+        //Si la busqueda esta vacia, devuelvo todo
+        return productoRepository.findAll();
+    }
 
 }

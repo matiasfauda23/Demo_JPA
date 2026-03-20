@@ -20,4 +20,6 @@ public interface ProductoRepository extends JpaRepository<Producto, Long> {
 
     List<Producto> findByPrecioGreaterThan(Double precio);
 
+    //Spring entiende que buscamos productos cuyo nombre contenga el texto (sin importar mayuscula o miniscula)
+    List<Producto> findByNombreContainingIgnoreCase(String nombre);
 }
