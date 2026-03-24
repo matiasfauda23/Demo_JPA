@@ -68,7 +68,7 @@ public class ProductoService {
         if(nombre != null && !nombre.isEmpty()){
             return productoRepository.findByNombreContainingIgnoreCase(nombre);
         }
-        //Si la busqueda esta vacia, devuelvo todo
+        //Si la busqueda esta vacia, devuelvo la lista completa
         return productoRepository.findAll();
     }
 
